@@ -232,6 +232,7 @@ aside ul {
 }
 
 .expense-info strong {
+  margin-top: 7px;
   font-size: 0.87rem;
   color: #1f2523;
 }
