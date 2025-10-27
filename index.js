@@ -1,6 +1,8 @@
 //CAPTURANDO ELEMENTOS DO FORMULARIO:
-
+const form = document.querySelector("form")//pegando o form para evnt submit
 const amount = document.getElementById("amount")
+const expense = document.getElementById("expense") //nome das despesas
+const category = document.getElementById("category") //dropdown categorias
 
 
 //EVENTOS
@@ -34,4 +36,8 @@ function formatarMoedaBRL(value){
 
     //RETORNA O VALOR FORMATADO
     return value
+}
+
+form.onsubmit = (event)=>{
+    event.preventDefault() //tirar a ação de reload no sumbit
 }
