@@ -38,6 +38,20 @@ function formatarMoedaBRL(value){
     return value
 }
 
+
+//CAPTURA O EVENTO DE SUBMIT DO FORMULARIO PARA OBTER OS VALORES
 form.onsubmit = (event)=>{
     event.preventDefault() //tirar a ação de reload no sumbit
+
+    //CRIA UM OBJETO COM OS DETALHES DAS INFORMACOES DE UMA NOVA DESPESA
+    const newExpense = {
+        id: new Date().getTime(),
+        expense: expense.value,
+        category_id: category.value,
+        category_name: category.options[category.selectedIndex].text,
+        amount: amount.value,
+        create_at: new Date(),
+    }
+
+    console.log(newExpense);
 }
