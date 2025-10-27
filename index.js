@@ -91,12 +91,17 @@ function adicionarNovaDespesa(novaDespesa) {
     valorDespesa.append(simboloBRL)
     valorDespesa.append(novaDespesa.amount.toUpperCase().replace("R$", ""))
 
+    //ADICIONANDO ICONE DE EXCLUIR NO ITEM
+    const iconeExcluir = document.createElement("img")
+    iconeExcluir.classList.add("remove-icon")
+    iconeExcluir.setAttribute("src", "img/remove.svg")
+    iconeExcluir.setAttribute("alt", "remover")
     
     //ADICIONANDO NOME E CATEGORIA NA div DAS INFORMACOES DA DESPESA
     infoDespesa.append(nomeDespesa, categoriaDespesa, valorDespesa)
 
     //ADICIONA AS INFORMAÇÕES NO ITEM
-    itemDespesa.append(iconeDespesa, infoDespesa)
+    itemDespesa.append(iconeDespesa, infoDespesa, iconeExcluir)
 
 
     //ADICIONANDO TUDO NA LISTA (ul)
