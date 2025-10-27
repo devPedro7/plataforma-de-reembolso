@@ -80,9 +80,20 @@ function adicionarNovaDespesa(novaDespesa) {
     const categoriaDespesa = document.createElement("span")
     categoriaDespesa.textContent = novaDespesa.category_name
 
+    //CRIANDO VALOR DA DESPESA
+    const valorDespesa = document.createElement("span")
+    valorDespesa.classList.add("expense-amount")
+
+    //CRIANDO SIMBOLO BRL DO VALOR DA DESPESA
+    const simboloBRL = document.createElement("small")
+    simboloBRL.textContent = "R$"
+
+    valorDespesa.append(simboloBRL)
+    valorDespesa.append(novaDespesa.amount.toUpperCase().replace("R$", ""))
+
     
     //ADICIONANDO NOME E CATEGORIA NA div DAS INFORMACOES DA DESPESA
-    infoDespesa.append(nomeDespesa, categoriaDespesa)
+    infoDespesa.append(nomeDespesa, categoriaDespesa, valorDespesa)
 
     //ADICIONA AS INFORMAÇÕES NO ITEM
     itemDespesa.append(iconeDespesa, infoDespesa)
