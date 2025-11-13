@@ -7,6 +7,12 @@ const category = document.getElementById("category"); //dropdown categorias
 //SELECIONANDO OS ELEMENTOS DA LISTA
 const listaDespesa = document.querySelector("ul")
 
+//RECUPERANDO O ELEMENTO DE QUANTIDADE DE DESPESAS
+const qtdDespesas = document.querySelector("aside header p span")//navegando para pegar a span
+
+//RECUPERANDO O TOTAL DAS DESPESAS
+const totalDespesas = document.querySelector("aside header h2")
+
 //EVENTOS
 
 //- EVENTO PARA QUANDO O VALOR DO amount MUDAR, PODER REMOVER AS LETRAS E PEGAR SÓ NUMEROS
@@ -83,7 +89,7 @@ function adicionarNovaDespesa(novaDespesa) {
     //CRIANDO VALOR DA DESPESA
     const valorDespesa = document.createElement("span")
     valorDespesa.classList.add("expense-amount")
-
+  
     //CRIANDO SIMBOLO BRL DO VALOR DA DESPESA
     const simboloBRL = document.createElement("small")
     simboloBRL.textContent = "R$"
@@ -98,17 +104,74 @@ function adicionarNovaDespesa(novaDespesa) {
     iconeExcluir.setAttribute("alt", "remover")
     
     //ADICIONANDO NOME E CATEGORIA NA div DAS INFORMACOES DA DESPESA
-    infoDespesa.append(nomeDespesa, categoriaDespesa, valorDespesa)
+    infoDespesa.append(nomeDespesa, categoriaDespesa)
+    
 
     //ADICIONA AS INFORMAÇÕES NO ITEM
-    itemDespesa.append(iconeDespesa, infoDespesa, iconeExcluir)
+    itemDespesa.append(iconeDespesa, infoDespesa, valorDespesa, iconeExcluir)
 
 
     //ADICIONANDO TUDO NA LISTA (ul)
     listaDespesa.append(itemDespesa) 
 
+    //SOMANDO A QUANTIDADE DE DESPESAS
+    atualizarTotalDespesas()
+
   } catch (error) {
     alert("Não foi possível atualizar a lista de despesas");
     console.log(error);
+  }
+}
+
+//ATUALIZA O NUMERO TOTAL DAS DESPESAS DA LISTA
+function atualizarTotalDespesas(){
+  try {
+    
+    //RECUPERA TODOS OS ITENS DA LISTA(li)
+    const items = listaDespesa.children //mostra quantos filhos tem dentro da lista
+
+    //ATUALIZANDO A QUANTIDADE DE ITENS DA LISTA
+    qtdDespesas.textContent = `${items.length} ${items.length > 1 ? "desepesas" : "despesa"}`
+
+    //VARIAVEL PARA ICREMENTAR O TOTAL DAS DESPESAS
+    let total = 0
+    //PERCORRENDO CADA li DA ul
+    for(let item = 0; item < items.length; item++){
+      const itemAmount = items[item].querySelector(".expense-amount") //acessando o item do momento
+
+      console.log(itemAmount)
+
+      //REMOVENDO CARCTERES NAO NUMERICOS E SUBSTITUINDO A VIRGULA PELO PONTO
+      let value = itemAmount.textContent.replace(/[^\d,]/g, "").replace(",", ".")
+
+      //CONVERTENDO O VALOR PARA float
+      value = parseFloat(value)
+
+      //VERIFICANDO SE É UM NUMERO VALIDO
+      if(isNaN(value)){
+        alert("Não foi possível calcular o total. O valor não parece ser um número.")
+      }
+
+      //INCREMENTANDO O VALOR TOTAL
+      total += Number(value)
+    }
+
+
+    //CRIANDO SPAN PARA R$ FORMARADO
+    const symbolBRL = document.createElement("small")
+    symbolBRL.textContent = "R$"
+
+    //FORMATA O VALOR E REMOVE O R$ QUE SERÁ EXIBIDO PELA SMALL COM UM ESTILO CUSTOMIZADO
+    total = formatarMoedaBRL(total).toUpperCase().replace("R$", "")
+
+    //LIMPA O CONTEUDO DO ELEMENTO
+    totalDespesas.innerHTML = ""
+
+    //ADICIONA O SIMBOLO DA MOEDA E O VALOR TOTAL FORMATADO
+    totalDespesas.append(symbolBRL, total)
+
+  } catch (error) {
+    console.log(error)
+    alert("Não foi possível atualizar os totais")
   }
 }
