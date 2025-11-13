@@ -175,3 +175,19 @@ function atualizarTotalDespesas(){
     alert("Não foi possível atualizar os totais")
   }
 }
+
+//EVENTO QUE CAPTURA O CLIQUE NOS ITENS DA LISTA
+listaDespesa.addEventListener("click", function(event){
+  //verificando se o elemento clicado é um item para remover
+  if(event.target.classList.contains("remove-icon")){
+    //OBTENDO A li PAI DO ELEMENTO CLICADO
+    const item = event.target.closest(".expense")
+
+    //REMOVENDO O ITEM DA LISTA
+    item.remove()
+
+  }
+
+      //ATUALIZANDO O TOTAL DOS ITENS QUANDO É REMOVIDO
+      atualizarTotalDespesas()
+})
