@@ -114,6 +114,9 @@ function adicionarNovaDespesa(novaDespesa) {
     //ADICIONANDO TUDO NA LISTA (ul)
     listaDespesa.append(itemDespesa) 
 
+    //LIMPANDO O FORMULARIO PARA ADICIONAR UM NOVO ITEM
+    limparDespesas()
+
     //SOMANDO A QUANTIDADE DE DESPESAS
     atualizarTotalDespesas()
 
@@ -191,3 +194,13 @@ listaDespesa.addEventListener("click", function(event){
       //ATUALIZANDO O TOTAL DOS ITENS QUANDO É REMOVIDO
       atualizarTotalDespesas()
 })
+
+function limparDespesas(){
+  //limpando os inputs
+  expense.value = ""
+  category.value = ""
+  amount.value = ""
+
+  //VOLTA PARA O NOME DA DESPESA AO ADICIONAR UM ITEM
+  expense.focus()
+}
